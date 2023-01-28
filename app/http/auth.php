@@ -1,73 +1,68 @@
-<?php  
+<?php
 session_start();
 
-# check if username & password  submitted
-if(isset($_POST['username']) &&
-   isset($_POST['password'])){
+# check kardane submit shodane user & pass
+if (
+  isset($_POST['username']) &&
+  isset($_POST['password'])
+) {
 
-   # database connection file
-   include '../db.conn.php';
-   
-   # get data from POST request and store them in var
-   $password = $_POST['password'];
-   $username = $_POST['username'];
-   
-   #simple form Validation
-   if(empty($username)){
-      # error message
-      $em = "Username is required";
+  include '../db.conn.php';
 
-      # redirect to 'index.php' and passing error message
-      header("Location: ../../index.php?error=$em");
-   }else if(empty($password)){
-      # error message
-      $em = "Password is required";
+  # gereftane user pass ba post request
+  $password = $_POST['password'];
+  $username = $_POST['username'];
 
-      # redirect to 'index.php' and passing error message
-      header("Location: ../../index.php?error=$em");
-   }else {
-      $sql  = "SELECT * FROM 
+  //validate kardane user baraye sign in
+  if (empty($username)) {
+
+    $em = "Username is required";
+    //redirect kardan be login ba error message
+    header("Location: ../../index.php?error=$em");
+  } else if (empty($password)) {
+    $em = "Password is required";
+    //redirect kardan be login ba error message
+    header("Location: ../../index.php?error=$em");
+  } else {
+    $sql = "SELECT * FROM 
                users WHERE username=?";
-      $stmt = $conn->prepare($sql);
-      $stmt->execute([$username]);
+    $stmt = $conn->prepare($sql);
+    $stmt->execute([$username]);
 
-      # if the username is exist
-      if($stmt->rowCount() === 1){
-        # fetching user data
-        $user = $stmt->fetch();
+    //check kardane user & pass baraye login
+    if ($stmt->rowCount() === 1) {
 
-        # if both username's are strictly equal
-        if ($user['username'] === $username) {
-           
-           # verifying the encrypted password
-          if (password_verify($password, $user['password'])) {
+      $user = $stmt->fetch();
 
-            # successfully logged in
-            # creating the SESSION
-            $_SESSION['username'] = $user['username'];
-            $_SESSION['name'] = $user['name'];
-            $_SESSION['user_id'] = $user['user_id'];
+      //check user
+      if ($user['username'] === $username) {
 
-            # redirect to 'home.php'
-            header("Location: ../../home.php");
+        # check encrypted password
+        if (password_verify($password, $user['password'])) {
 
-          }else {
-            # error message
-            $em = "Incorect Username or password";
+          # sakhtane session darsoorate login movafagh
+          $_SESSION['username'] = $user['username'];
+          $_SESSION['name'] = $user['name'];
+          $_SESSION['user_id'] = $user['user_id'];
 
-            # redirect to 'index.php' and passing error message
-            header("Location: ../../index.php?error=$em");
-          }
-        }else {
-          # error message
+          # redirect be 'home.php'
+          header("Location: ../../home.php");
+
+        } else {
           $em = "Incorect Username or password";
 
-          # redirect to 'index.php' and passing error message
+          //redirect kardan be login ba error message
           header("Location: ../../index.php?error=$em");
         }
+      } else {
+        $em = "Incorect Username or password";
+
+        //redirect kardan be login ba error message
+        header("Location: ../../index.php?error=$em");
       }
-   }
-}else {
+    }
+  }
+} else {
   header("Location: ../../index.php");
   exit;
 }

@@ -2,7 +2,7 @@
   session_start();
 
   if (isset($_SESSION['username'])) {
-  	# ertebat ba db
+
   	include 'app/db.conn.php';
 
   	include 'app/helpers/user.php';
@@ -148,17 +148,17 @@
       });
 
       
-      //update kardane khodkare last seen braye karbare log in shode 
+      //update kardane khodkare last seen har 10s
       let lastSeenUpdate = function(){
       	$.get("app/ajax/update_last_seen.php");
       }
       lastSeenUpdate();
-      //update kardane khodkare last seen har 10 sec
+     
       setInterval(lastSeenUpdate, 10000);
 
 
 
-      //  refreshe khodkar / reload
+      //  refresh chat har 0.5s
       let fechData = function(){
       	$.post("app/ajax/getMessage.php", 
       		   {
@@ -171,7 +171,7 @@
       }
 
       fechData();
-      //update kardane khodkare last seen har 10 sec
+      
       setInterval(fechData, 500);
     
     });

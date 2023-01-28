@@ -1,51 +1,42 @@
 <?php  
 
-# check if username, password, name submitted
+# check kardane submit shodane user & pass
 if(isset($_POST['username']) &&
    isset($_POST['password']) &&
    isset($_POST['name'])){
 
-   # database connection file
    include '../db.conn.php';
    
-   # get data from POST request and store them in var
+  	# gereftane data ba post request
    $name = $_POST['name'];
    $password = $_POST['password'];
    $username = $_POST['username'];
 
-   # making URL data format
+   # URL ba format data
    $data = 'name='.$name.'&username='.$username;
 
-   #simple form Validation
+   //validate kardane user baraye sign up
    if (empty($name)) {
-   	  # error message
    	  $em = "Name is required";
 
-   	  # redirect to 'signup.php' and passing error message
+   	  //redirect kardan be signup ba error message
    	  header("Location: ../../signup.php?error=$em");
    	  exit;
    }else if(empty($username)){
-      # error message
    	  $em = "Username is required";
 
-   	  /*
-    	redirect to 'signup.php' and 
-    	passing error message and data
-      */
+   	  //redirect kardan be signup ba error message
    	  header("Location: ../../signup.php?error=$em&$data");
    	  exit;
    }else if(empty($password)){
-   	  # error message
+
    	  $em = "Password is required";
 
-   	  /*
-    	redirect to 'signup.php' and 
-    	passing error message and data
-      */
+   	  //redirect kardan be signup ba error message
    	  header("Location: ../../signup.php?error=$em&$data");
    	  exit;
    }else {
-   	  # checking the database if the username is taken
+   	  //check kardan vojood username
    	  $sql = "SELECT username 
    	          FROM users
    	          WHERE username=?";
@@ -57,14 +48,13 @@ if(isset($_POST['username']) &&
       	header("Location: ../../signup.php?error=$em&$data");
    	    exit;
       }else {
-      	# Profile Picture Uploading
+      	//upload profile picture
       	if (isset($_FILES['pp'])) {
       		# get data and store them in var
       		$img_name  = $_FILES['pp']['name'];
       		$tmp_name  = $_FILES['pp']['tmp_name'];
       		$error  = $_FILES['pp']['error'];
 
-      		# if there is not error occurred while uploading
       		if($error === 0){
                
                # get image extension store it in var
@@ -110,16 +100,16 @@ if(isset($_POST['username']) &&
       	// password hashing
       	$password = password_hash($password, PASSWORD_DEFAULT);
 
-      	# if the user upload Profile Picture
+      	//insert user ba P_P
       	if (isset($new_img_name)) {
 
-      		# inserting data into database
             $sql = "INSERT INTO users
                     (name, username, password, p_p)
                     VALUES (?,?,?,?)";
             $stmt = $conn->prepare($sql);
             $stmt->execute([$name, $username, $password, $new_img_name]);
-      	}else {
+      	//insert user bedoone P_P
+		}else {
             # inserting data into database
             $sql = "INSERT INTO users
                     (name, username, password)
@@ -128,10 +118,10 @@ if(isset($_POST['username']) &&
             $stmt->execute([$name, $username, $password]);
       	}
 
-      	# success message
+      	// success message
       	$sm = "Account created successfully";
 
-      	# redirect to 'index.php' and passing success message
+      	// redirect be login
       	header("Location: ../../index.php?success=$sm");
      	exit;
       }

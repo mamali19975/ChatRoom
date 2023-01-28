@@ -8,14 +8,11 @@ if (isset($_SESSION['username'])) {
 	if (isset($_POST['message']) &&
         isset($_POST['to_id'])) {
 	
-	# ertebat ba db
 	include '../db.conn.php';
 
 	# daryafte etelaat payam va zakhire dar moteghayer
 	$message = $_POST['message'];
 	$to_id = $_POST['to_id'];
-
-	# daryafte username karbare log in shode dar session
 	$from_id = $_SESSION['user_id'];
 
 	$sql = "INSERT INTO 
@@ -24,10 +21,10 @@ if (isset($_SESSION['username'])) {
 	$stmt = $conn->prepare($sql);
 	$res  = $stmt->execute([$from_id, $to_id, $message]);
     
-    # baresi inke payam vared shode ya kheir
+    # baresi vared shodane payam
     if ($res) {
 
-		#aya in avalin conversation beine an hast
+		
        $sql2 = "SELECT * FROM conversations
                WHERE (user_1=? AND user_2=?)
                OR    (user_2=? AND user_1=?)";
@@ -40,6 +37,7 @@ if (isset($_SESSION['username'])) {
 
 		$time = date("h:i:s a");
 
+		//aya in avalin conversation beine an hast
 		if ($stmt2->rowCount() == 0 ) {
 			# vared kardan dar jadvale conversation
 			$sql3 = "INSERT INTO 

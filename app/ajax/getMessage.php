@@ -6,7 +6,6 @@ session_start();
 if (isset($_SESSION['username'])) {
 
 	if (isset($_POST['id_2'])) {
-	# ertebat ba db
 
 	include '../db.conn.php';
 

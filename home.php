@@ -2,7 +2,7 @@
   session_start();
 
   if (isset($_SESSION['username'])) {
-  	# ertebat ba db
+
   	include 'app/db.conn.php';
 
   	include 'app/helpers/user.php';
@@ -13,7 +13,7 @@
   	# gereftane data az user
   	$user = getUser($_SESSION['username'], $conn);
 
-  	# greftane conversation az user
+  	# greftane conversation haye user
   	$conversations = getConversation($user['user_id'], $conn);
 
 ?>
@@ -109,7 +109,7 @@
 <script>
 	$(document).ready(function(){
       
-      // Searche mohtaviate searchtext dar chat
+      // Searche mohtaviate searchtext
        $("#searchText").on("input", function(){
        	 var searchText = $(this).val();
          if(searchText == "") return;
@@ -136,14 +136,14 @@
        });
 
 
-      //update kardane khodkare last seen braye karbare log in shode 
+      //update kardane khodkare last seen har 10 sec
       
       let lastSeenUpdate = function(){
       	$.get("app/ajax/update_last_seen.php");
       }
       lastSeenUpdate();
       
-      //update kardane khodkare last seen har 10 sec
+      
       
       setInterval(lastSeenUpdate, 10000);
 

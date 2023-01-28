@@ -6,8 +6,7 @@ session_start();
 if (isset($_SESSION['username'])) {
     # baresi inke key ersal shode
     if(isset($_POST['key'])){
-       	# ertebat ba db
-
+		
 	   include '../db.conn.php';
 
 	   #search
