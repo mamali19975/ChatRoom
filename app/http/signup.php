@@ -66,6 +66,7 @@ if(isset($_POST['username']) &&
 				**/
 				$img_ex_lc = strtolower($img_ex);
 
+			
 				/** 
 				crating array that stores allowed
 				to upload image extension.
