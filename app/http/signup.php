@@ -60,34 +60,21 @@ if(isset($_POST['username']) &&
                # get image extension store it in var
       		   $img_ex = pathinfo($img_name, PATHINFO_EXTENSION);
 
-               /** 
-				convert the image extension into lower case 
-				and store it in var 
-				**/
+               #zakhire ax ba format lower case
 				$img_ex_lc = strtolower($img_ex);
 
-			
-				/** 
-				crating array that stores allowed
-				to upload image extension.
-				**/
+				#format mojaz zakhire ax
 				$allowed_exs = array("jpg", "jpeg", "png");
 
-				/** 
-				check if the the image extension 
-				is present in $allowed_exs array
-				**/
+				#baresi mojaz budan format ax
 				if (in_array($img_ex_lc, $allowed_exs)) {
-					/** 
-					 renaming the image with user's username
-					 like: username.$img_ex_lc
-					**/
+					#taghire name ax ba username
 					$new_img_name = $username. '.'.$img_ex_lc;
 
-					# crating upload path on root directory
+					# sakhtane upload path dar root
 					$img_upload_path = '../../uploads/'.$new_img_name;
 
-					# move uploaded image to ./upload folder
+					# enteghal ax be masire taeen shode
                     move_uploaded_file($tmp_name, $img_upload_path);
 				}else {
 					$em = "You can't upload files of this type";
