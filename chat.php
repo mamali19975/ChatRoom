@@ -38,6 +38,9 @@
 	<link rel="stylesheet" 
 	      href="styles/style.css">
 	<link rel="icon" href="img/logo.png">
+	<script
+      src="https://kit.fontawesome.com/df683221e1.js"
+      crossorigin="anonymous"></script>
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 <body class="d-flex
@@ -86,7 +89,8 @@
 						    <?=$chat['message']?> 
 						    <small class="d-block">
 						    	<?=$chat['created_at']?>
-						    </small>      	
+						    </small>    
+							<small class="btn-delete" chatid="<?= $chat['chat_id'] ?>"><i class="fa-regular fa-trash-can"></i></small>
 						</p>
                     <?php }else{ ?>
 					<p class="ltext border 
@@ -95,6 +99,7 @@
 					    <small class="d-block">
 					    	<?=$chat['created_at']?>
 					    </small>      	
+						<small class="btn-delete" chatid="<?= $chat['chat_id'] ?>"><i class="fa-regular fa-trash-can"></i></small>
 					</p>
                     <?php } 
                      }	
@@ -144,10 +149,25 @@
                   $("#message").val("");
                   $("#chatBox").append(data);
                   scrollDown();
+				  location.reload(true);
       		   });
       });
 
-      
+      $(".btn-delete").on('click', function(){
+		var $this = $(this)
+		console.log($this.attr("chatid"));
+		chat_id = $this.attr("chatid");
+		console.log(chat_id);
+
+		$.post("app/ajax/delete.php",
+		{
+			chat_id: chat_id
+		}).done(function(){
+			//$this.parent().remove();
+			location.reload(true);
+		});
+	  });
+
       //update kardane khodkare last seen har 10s
       let lastSeenUpdate = function(){
       	$.get("app/ajax/update_last_seen.php");
@@ -163,11 +183,15 @@
       	$.post("app/ajax/recieveMessage.php", 
       		   {
       		   	id_2: <?=$chatWith['user_id']?>
-      		   },
-      		   function(data, status){
+      		   }).done(function(data, status){
                   $("#chatBox").append(data);
-                  if (data != "") scrollDown();
+                  if (data != "") {
+					scrollDown();
+					location.reload(true);
+				  }
       		    });
+
+		
       }
 
       fechData();

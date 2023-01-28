@@ -10,7 +10,7 @@ if (isset($_SESSION['username'])) {
 	
 	include '../db.conn.php';
 
-	# daryafte etelaat payam va zakhire dar moteghayer
+	# daryafte etelaat payam va zakhire dar db
 	$message = $_POST['message'];
 	$to_id = $_POST['to_id'];
 	$from_id = $_SESSION['user_id'];
@@ -20,7 +20,8 @@ if (isset($_SESSION['username'])) {
 	       VALUES (?, ?, ?)";
 	$stmt = $conn->prepare($sql);
 	$res  = $stmt->execute([$from_id, $to_id, $message]);
-    
+	
+	$chat_id = $conn->lastInsertId();
     # baresi vared shodane payam
     if ($res) {
 
@@ -46,13 +47,12 @@ if (isset($_SESSION['username'])) {
 			$stmt3 = $conn->prepare($sql3); 
 			$stmt3->execute([$from_id, $to_id]);
 		}
-		?>
 
+		?>
 		<p class="rtext align-self-end
 		          border rounded p-2 mb-1">
 		    <?=$message?>  
-		    <small class="d-block"><?=$time?></small>      	
-		</p>
+		    <small class="d-block"><?=$time?></small>   
 
     <?php 
      }
