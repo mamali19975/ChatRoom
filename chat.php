@@ -160,7 +160,7 @@
 
       //  refresh chat har 0.5s
       let fechData = function(){
-      	$.post("app/ajax/getMessage.php", 
+      	$.post("app/ajax/recieveMessage.php", 
       		   {
       		   	id_2: <?=$chatWith['user_id']?>
       		   },

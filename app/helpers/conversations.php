@@ -18,6 +18,7 @@ function getConversation($user_id, $conn){
         # loop dar convs 
         foreach($conversations as $conversation){
             # moghayese user-id session ba user id conv
+            
             if ($conversation['user_1'] == $user_id) {
             	$sql2  = "SELECT *
             	          FROM users WHERE user_id=?";

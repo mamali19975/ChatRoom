@@ -8,7 +8,7 @@ $uName = "root";
 $pass = "";
 
 # database name
-$db_name = "chat_app_db";
+$db_name = "chatroom";
 
 #sakhte ertebat ba db
 try {
