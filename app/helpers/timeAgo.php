@@ -1,7 +1,7 @@
 <?php
 
 // tanzim time zone
-define('TIMEZONE', 'Asia/Istanbul');
+define('TIMEZONE', 'Asia/Tehran');
 date_default_timezone_set(TIMEZONE);
 
 function last_seen($date_time){

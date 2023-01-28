@@ -35,7 +35,7 @@ if (isset($_SESSION['username'])) {
 	   $stmt2->execute([$from_id, $to_id, $from_id, $to_id]);
 
 	    // tanzime time zone
-		define('TIMEZONE', 'Asia/Istanbul');
+		define('TIMEZONE', 'Asia/Tehran');
 		date_default_timezone_set(TIMEZONE);
 
 		$time = date("h:i:s a");
