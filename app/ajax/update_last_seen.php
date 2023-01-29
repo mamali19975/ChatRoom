@@ -16,6 +16,7 @@ if (isset($_SESSION['username'])) {
 	$stmt = $conn->prepare($sql);
 	$stmt->execute([$id]);
 
+
 }else {
 	header("Location: ../../index.php");
 	exit;

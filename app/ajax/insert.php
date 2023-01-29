@@ -54,6 +54,8 @@ if (isset($_SESSION['username'])) {
 		    <?=$message?>  
 		    <small class="d-block"><?=$time?></small>   
 
+		
+
     <?php 
      }
   }
