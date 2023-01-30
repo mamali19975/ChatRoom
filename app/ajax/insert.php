@@ -7,7 +7,6 @@ if (isset($_SESSION['username'])) {
 
 	if (isset($_POST['message']) &&
         isset($_POST['to_id'])) {
-	
 	include '../db.conn.php';
 
 	# daryafte etelaat payam va zakhire dar db
