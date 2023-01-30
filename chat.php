@@ -46,9 +46,9 @@ if (isset($_SESSION['username'])) {
 	</head>
 
 	<body class="d-flex
-														 justify-content-center
-														 align-items-center
-														 vh-100">
+															 justify-content-center
+															 align-items-center
+															 vh-100">
 		<div class="w-400 shadow p-4 rounded">
 			<a href="home.php" class="fs-4 link-dark">&#8592;</a>
 
@@ -58,7 +58,7 @@ if (isset($_SESSION['username'])) {
 				<h3 class="display-4 fs-sm m-2">
 					<?= $chatWith['name'] ?> <br>
 					<div class="d-flex
-																			 align-items-center" title="online">
+																				 align-items-center" title="online">
 						<?php
 						if (last_seen($chatWith['last_seen']) == "Active") {
 							?>
@@ -75,8 +75,8 @@ if (isset($_SESSION['username'])) {
 			</div>
 
 			<div class="shadow p-4 rounded
-																   d-flex flex-column
-																   mt-2 chat-box" id="chatBox">
+																	   d-flex flex-column
+																	   mt-2 chat-box" id="chatBox">
 				<?php
 				if (!empty($chats)) {
 					foreach ($chats as $chat) {
@@ -86,7 +86,7 @@ if (isset($_SESSION['username'])) {
 								<small class="d-block">
 									<?= $chat['created_at'] ?>
 								</small>
-								<small class="">
+								<small>
 									<i class="fa-regular fa-trash-can btn-delete" chatid="<?= $chat['chat_id'] ?>"></i>
 									<i class="fa-regular fa-edit ms-2 btn-edit-pop" chatid="<?= $chat['chat_id'] ?>"
 										data-bs-toggle="modal" data-bs-target="#exampleModal"></i>
@@ -127,7 +127,7 @@ if (isset($_SESSION['username'])) {
 						</div>
 						<div class="modal-body">
 							<input type="text" id="message-edit">
-							
+
 						</div>
 						<div class="modal-footer">
 							<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
@@ -162,7 +162,7 @@ if (isset($_SESSION['username'])) {
 						{
 							message: message,
 							to_id: <?= $chatWith['user_id'] ?>
-															 },
+																 },
 						function (data, status) {
 							$("#message").val("");
 							$("#chatBox").append(data);
@@ -181,8 +181,8 @@ if (isset($_SESSION['username'])) {
 						{
 							chat_id: chat_id
 						}).done(function () {
-							//$this.parent().remove();
-							location.reload(true);
+							$this.parent().parent().remove();
+							//location.reload(true);
 						});
 				});
 
@@ -194,11 +194,10 @@ if (isset($_SESSION['username'])) {
 						{
 							chat_id: chat_id,
 							message_edit: message
-							
+
 						}).done(function (data, status) {
 							console.log(data);
 							location.reload(true);
-
 						});
 				});
 
@@ -226,7 +225,7 @@ if (isset($_SESSION['username'])) {
 					$.post("app/ajax/recieveMessage.php",
 						{
 							id_2: <?= $chatWith['user_id'] ?>
-															 }).done(function (data, status) {
+						}).done(function (data, status) {
 								$("#chatBox").append(data);
 								if (data != "") {
 									scrollDown();
