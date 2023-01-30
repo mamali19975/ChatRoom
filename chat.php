@@ -100,8 +100,6 @@ if (isset($_SESSION['username'])) {
 								</small>
 								<small class="">
 									<i class="fa-regular fa-trash-can btn-delete" chatid="<?= $chat['chat_id'] ?>"></i>
-									<i class="fa-regular fa-edit ms-2 btn-edit-pop" chatid="<?= $chat['chat_id'] ?>"
-										data-bs-toggle="modal" data-bs-target="#exampleModal"></i>
 								</small>
 							</p>
 						<?php }
@@ -128,7 +126,7 @@ if (isset($_SESSION['username'])) {
 							<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 						</div>
 						<div class="modal-body">
-							<input type="text" id="message-edit" value="gfewf">
+							<input type="text" id="message-edit">
 							
 						</div>
 						<div class="modal-footer">

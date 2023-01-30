@@ -107,7 +107,7 @@ if (isset($_SESSION['username'])) {
 		<div id="liveToast" class="toast toast-container position-fixed bottom-0 end-0 p-3" role="alert"
 			aria-live="assertive" aria-atomic="true">
 			<div class="toast-header">
-				<img src="/img/logo.png" class="rounded me-2" alt="...">
+				<img src="img/logo.png" class="rounded me-2 w-10" alt="...">
 				<strong class="me-auto">New Message</strong>
 				<small>Just Now</small>
 				<button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
@@ -170,6 +170,7 @@ if (isset($_SESSION['username'])) {
 					$.post('app/ajax/update_convs.php',
 						function (data, status) {
 							message = data;
+							console.log(data);
 
 							if (message > old_message) {
 								old_message = message;

@@ -15,5 +15,5 @@ if (isset($_SESSION['username'])) {
     $stmt = $conn->prepare($sql);
     $stmt->execute([$id, 0]);
 
-    echo $stmt->rowCount();
+    echo ($stmt->rowCount() - 1);
 }
